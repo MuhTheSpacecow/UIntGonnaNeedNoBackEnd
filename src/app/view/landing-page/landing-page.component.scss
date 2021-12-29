@@ -1,0 +1,21 @@
+@import "~@angular/material/theming";
+@import '/src/variables.scss';
+
+.kundendaten-card,
+.weiter-button {
+    width: 35%;
+    min-width: 620px;
+}
+
+.kundendaten-card {
+    border: 2px solid;
+    border-color: mat-color($primaryPalette);
+
+    &.selection-has-error {
+        border-color: mat-color($warnPalette);
+    }
+}
+
+.selected {
+    background-color: mat-color($accentPalette, 'lighter');
+}

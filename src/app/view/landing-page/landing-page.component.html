@@ -1,0 +1,70 @@
+<div *ngIf="!kundendaten || kundendaten.length === 0"
+     class="kundendaten-card container mt-5 px-4 py-3 border border-primary rounded">
+    <h2 class="mb-1">
+        Loading...
+    </h2>
+</div>
+
+<mat-radio-group *ngIf="kundendaten && kundendaten.length > 0"
+                 class="d-block kundendaten-card container mt-5 px-4 py-3 rounded"
+                 [class.selection-has-error]="selectedKundendaten.touched && selectedKundendaten.invalid"
+                 [formControl]="selectedKundendaten">
+    <h3 class="mb-1">
+        Bitte wähle deinen Favoriten:
+    </h3>
+    <div *ngFor="let kunde of kundendaten; let i = index"
+         class="row"
+         [class.mt-2]="i != 0">
+        <mat-radio-button [value]="kunde">
+            {{ kunde.vorname + ' ' + kunde.nachname }}
+        </mat-radio-button>
+    </div>
+    <div *ngIf="selectedKundendaten.touched && selectedKundendaten.invalid"
+         class="text-danger mt-3">
+        Es muss eine Auswahl getroffen werden, um fortzufahren!
+    </div>
+</mat-radio-group>
+
+<div *ngFor="let kunde of kundendaten"
+     class="kundendaten-card container mt-4 px-4 py-3 rounded"
+     [class.selected]="selectedKundendaten.value === kunde">
+    <div class="row">
+        <h2 class="mb-1"
+            [innerHTML]="(kunde?.titel ? (kunde?.titel + ' ') : '') + kunde?.vorname + ' ' + kunde?.nachname"></h2>
+    </div>
+    <div *ngIf="kunde?.geburtsdatum"
+         class="row">
+        <div class="col-4">
+            Geburtsdatum:
+        </div>
+        <div class="col-8"
+             [innerHTML]="kunde?.geburtsdatum">
+        </div>
+    </div>
+    <div *ngIf="kunde?.strasse && kunde?.hausnummer"
+         class="row">
+        <div class="col-4">
+            Straße & Hausnummer:
+        </div>
+        <div class="col-8"
+             [innerHTML]="kunde?.strasse + ' ' + kunde?.hausnummer">
+        </div>
+    </div>
+    <div *ngIf="kunde?.plz && kunde?.ort"
+         class="row">
+        <div class="col-4">
+            PLZ & Ort:
+        </div>
+        <div class="col-8"
+             [innerHTML]="kunde?.plz + ' ' + kunde?.ort">
+        </div>
+    </div>
+</div>
+
+<div class="weiter-button container mt-4 p-0 d-flex justify-content-end">
+    <button mat-raised-button
+            routerLink="/detail-page"
+            (click)="selectedKundendaten.markAsTouched()">
+        Weiter
+    </button>
+</div>

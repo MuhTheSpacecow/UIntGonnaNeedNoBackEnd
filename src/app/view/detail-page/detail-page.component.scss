@@ -1,0 +1,7 @@
+@import "~@angular/material/theming";
+@import '/src/variables.scss';
+
+.lieblingspirat {
+    border: 2px solid;
+    border-color: mat-color($primaryPalette);
+}
